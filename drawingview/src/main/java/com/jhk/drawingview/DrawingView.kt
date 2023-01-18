@@ -25,7 +25,7 @@ class DrawingView (context: Context, attrs: AttributeSet) : View(context, attrs)
     private var mUndoPath = ArrayList<DrawPath>()
 
     private var mPaint = Paint().apply {
-        color = Color.BLACK
+        color = Color.WHITE
         alpha = 255
         strokeWidth = 4f
         xfermode = null
