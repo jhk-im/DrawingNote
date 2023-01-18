@@ -3,7 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
-group='com.github.jhk'
+group='com.github.jhk-im'
 
 android {
     compileSdk 32
