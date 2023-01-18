@@ -2,10 +2,8 @@ package com.jhk.drawingnote
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.MotionEvent
 import com.jhk.drawingnote.databinding.ActivityMainBinding
-import com.jhk.drawingview.DrawingView
 
 class MainActivity : AppCompatActivity() {
 
