@@ -1,4 +1,4 @@
-package com.jhk.drawingview
+package com.jhk
 
 import android.content.Context
 import android.graphics.*
