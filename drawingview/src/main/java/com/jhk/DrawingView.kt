@@ -3,6 +3,8 @@ package com.jhk
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 
 class DrawingView (context: Context, attrs: AttributeSet) : View(context, attrs) {
@@ -87,13 +89,40 @@ class DrawingView (context: Context, attrs: AttributeSet) : View(context, attrs)
         }
     }
 
-    fun actionDown(touchX: Float, touchY: Float) {
+    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+        super.dispatchTouchEvent(event)
+
+        event?.let { motionEvent ->
+            val touchX = motionEvent.x
+            val touchY = motionEvent.y
+            touchAction = motionEvent.action
+            //isColorTooltip = false
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    performClick()
+                    actionDown(touchX = touchX, touchY = touchY)
+                }
+                MotionEvent.ACTION_UP -> {
+                    actionUp()
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    actionMove(touchX = touchX, touchY = touchY)
+                }
+                else -> {}
+            }
+        }
+
+        return true
+    }
+
+
+    private fun actionDown(touchX: Float, touchY: Float) {
         mDrawPath.reset()
         mDrawPath.moveTo(touchX, touchY)
         invalidate()
     }
 
-    fun actionUp() {
+    private fun actionUp() {
         mPaths.add(mDrawPath)
         mDrawPath = DrawPath(
             mPaint.color,
@@ -105,7 +134,7 @@ class DrawingView (context: Context, attrs: AttributeSet) : View(context, attrs)
         invalidate()
     }
 
-    fun actionMove(touchX: Float, touchY: Float) {
+    private fun actionMove(touchX: Float, touchY: Float) {
         mDrawPath.lineTo(touchX, touchY)
         invalidate()
     }
