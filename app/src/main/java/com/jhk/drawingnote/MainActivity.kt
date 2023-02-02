@@ -16,6 +16,28 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.isColorTooltip = false
+
+
+        binding.ivDelete.setOnClickListener {
+            binding.drawingView.clear()
+        }
+
+        binding.ivUndo.setOnClickListener {
+            binding.drawingView.undo()
+        }
+
+        binding.ivRedo.setOnClickListener {
+            binding.drawingView.redo()
+        }
+
+        binding.ivErase.setOnClickListener {
+            binding.drawingView.erase()
+        }
+
+        binding.ivPencil.setOnClickListener {
+            binding.drawingView.write(R.color.white)
+        }
+
+
     }
 }
