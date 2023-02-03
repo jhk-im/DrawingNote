@@ -3,7 +3,6 @@ package com.jhk
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 
@@ -13,7 +12,11 @@ class DrawingView (context: Context, attrs: AttributeSet) : View(context, attrs)
     private var mCanvasPaint = Paint(Paint.DITHER_FLAG)
 
     private var isClearCanvas = false
-    var touchAction = 0
+    private var touchAction = 0
+    var setEraseStrokeWidth: Float = 50.0f
+    var setStrokeWidth: Float = 150.0f
+    var setAlpha = 255
+    var setColor = Color.WHITE
 
     inner class DrawPath(
         var color: Int,
@@ -27,9 +30,9 @@ class DrawingView (context: Context, attrs: AttributeSet) : View(context, attrs)
     private var mUndoPath = ArrayList<DrawPath>()
 
     private var mPaint = Paint().apply {
-        color = Color.WHITE
-        alpha = 255
-        strokeWidth = 4f
+        color = setColor
+        alpha = setAlpha
+        strokeWidth = setStrokeWidth
         xfermode = null
         isAntiAlias = false
         style = Paint.Style.STROKE
@@ -139,14 +142,30 @@ class DrawingView (context: Context, attrs: AttributeSet) : View(context, attrs)
         invalidate()
     }
 
-    fun write(writeColor: Int) {
+//    fun setStroke(stoke: Float) {
+//        setStrokeWidth = stoke
+//    }
+//
+//    fun setEraseStroke(stoke: Float) {
+//        setEraseStrokeWidth = stoke
+//    }
+//
+//    fun setColor(color: Int) {
+//        setColor = color
+//    }
+//
+//    fun setAlpha(alpha: Int) {
+//        setAlpha = alpha
+//    }
+
+    fun write() {
         isClearCanvas = false
         mDrawPath.apply {
             isAntiAlias = false
             xfermode = null
-            alpha = 255
-            color = writeColor
-            strokeWidth = 4f
+            alpha = setAlpha
+            color = setColor
+            strokeWidth = setStrokeWidth
         }
     }
 
@@ -157,7 +176,7 @@ class DrawingView (context: Context, attrs: AttributeSet) : View(context, attrs)
             xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
             alpha = 0
             color = Color.TRANSPARENT
-            strokeWidth = 60f
+            strokeWidth = setEraseStrokeWidth
         }
     }
 
